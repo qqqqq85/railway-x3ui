@@ -6,9 +6,10 @@ RUN apk add --no-cache \
     ca-certificates \
     socat \
     tzdata \
+    sqlite \
     && ln -sf /usr/share/zoneinfo/Asia/Tehran /etc/localtime
 
-# لینک صحیح از ریپازیتوری mhsanaei
+# نصب X-UI
 RUN curl -L https://github.com/mhsanaei/3x-ui/releases/download/v3.0.2/x-ui-linux-amd64.tar.gz -o /tmp/x-ui.tar.gz \
     && tar -xzf /tmp/x-ui.tar.gz -C /usr/local/ \
     && rm /tmp/x-ui.tar.gz \
@@ -19,6 +20,6 @@ RUN mkdir -p /etc/x-ui /var/log/x-ui
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-EXPOSE 54321 443 80 2096
+EXPOSE ${PORT}
 
 CMD ["/start.sh"]
