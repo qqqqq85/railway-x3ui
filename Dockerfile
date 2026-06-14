@@ -1,15 +1,28 @@
-# استفاده از Alpine به جای Ubuntu (خیلی سبک‌تر)
 FROM alpine:3.19
 
+# نصب پیش‌نیازها
 RUN apk add --no-cache \
-    curl wget git vim nano \
-    nodejs npm \
-    openssh-server \
+    curl \
+    bash \
+    ca-certificates \
     socat \
-    && apk add --no-cache --virtual .build-deps python3 make g++ \
-    && rm -rf /var/cache/apk/*
+    tzdata \
+    && ln -sf /usr/share/zoneinfo/Asia/Tehran /etc/localtime
 
-# نصب X-UI (نسخه سبک)
+# نصب X-UI
 RUN curl -L https://github.com/alireza0/x-ui/releases/download/v3.0.2/x-ui-linux-amd64.tar.gz -o /tmp/x-ui.tar.gz \
     && tar -xzf /tmp/x-ui.tar.gz -C /usr/local/ \
-    && rm /tmp/x-ui.tar.gz
+    && rm /tmp/x-ui.tar.gz \
+    && chmod +x /usr/local/x-ui/x-ui
+
+# ایجاد دایرکتوری کانفیگ
+RUN mkdir -p /etc/x-ui /var/log/x-ui
+
+# کپی اسکریپت استارت
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# پورت‌های مورد نیاز
+EXPOSE 54321 443 80 2096
+
+CMD ["/start.sh"]
