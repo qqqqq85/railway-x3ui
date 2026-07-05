@@ -1,5 +1,5 @@
 آموزش متنی --> 
-[https://railwayx3ui.page.gd](https://railwayx3ui.page.gd/index.html)
+[https://railwayx3ui.page.gd/index.html](https://railwayx3ui.page.gd/index.html)
 
 دونیت  --> 
 https://wallets.arvin341az.workers.dev
